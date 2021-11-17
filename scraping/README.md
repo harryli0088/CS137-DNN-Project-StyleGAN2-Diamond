@@ -1,6 +1,6 @@
 # Diamond Web Scraping
 
-You can scrape Brilliant Earth for their diamond data without any fancy configuration. They don't check any headers like user agent. They do seem to do some rate limiting but will not block your requests.
+You can scrape Brilliant Earth for their diamond data without any fancy configuration. They do seem to do some rate limiting but will not block your requests.
 
 ## Set Up
 

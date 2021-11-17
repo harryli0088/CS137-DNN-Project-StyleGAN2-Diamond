@@ -1,7 +1,6 @@
 # run this file if you want to scrape the diamonds
 
 import csv
-import json
 import requests
 import urllib.request
 
@@ -27,33 +26,72 @@ def getUrl(shape="Round",page=1):
 
 catalog_data = []
 for shape in SHAPES: # loop through all the shapes
-  # TODO paginate?
-  
-  response = requests.get(getUrl(shape)) # make a GET request
-  response_dict = response.json() # parse the JSON response into a dictionary
+  shape_count = 0
 
-  for diamond in response_dict["diamonds"]: # loop through all the diamonds
-    for real_image in diamond["images"]["real_images"]: # loop through all the real images for this diamond (usually only 1)
+  for page in range(1,101): # paginate
+    response = requests.get(getUrl(shape, page)) # make a GET request
+    response_dict = response.json() # parse the JSON response into a dictionary
+
+    if len(response_dict["diamonds"]) == 0: # if there are no more diamonds
+      break # stop requesting for this shape
+
+    for diamond in response_dict["diamonds"]: # loop through all the diamonds
       id = diamond["id"]
-      src = real_image["src"]
 
-      print("Saving Diamond:", id)
+      # at high page counts, the diamonds often repeat
+      # we only want to save a diamond if we have not seen it before (identifying by id)
+      is_unique = not any(d["id"]==id for d in catalog_data)
 
-      urllib.request.urlretrieve( # save the image to file
-        "http:"+src, "data/images/"+src.split("/")[-1]
-      )
-      catalog_data.append({
-        "id": diamond["id"],
-        "real_image_src": src,
-        # if you want to record other data, add it here, then update csv_columns
-      })
+      if is_unique:
+          for idx, real_image in enumerate(diamond["images"]["real_images"]): # loop through all the real images for this diamond (usually only 1)
+              src = real_image["src"] # get the src URL for this iamge
+              file_name = str(id) + "-" + str(idx) + "." + src.split(".")[-1] # id-idx.format
+
+              print("Saving Diamond:", id)
+
+              urllib.request.urlretrieve( # save the image to file
+                "http:"+src, "data/images/"+file_name
+              )
+              catalog_data.append({
+                "carat": diamond["carat"],
+                "clarity": diamond["clarity"],
+                "color": diamond["color"],
+                "cut": diamond["cut"],
+                "file_name": file_name,
+                "id": id,
+                "origin": diamond["origin"],
+                "polish": diamond["polish"],
+                "price": diamond["price"],
+                "product_class": diamond["product_class"],
+                "src": src,
+                "shape": shape,
+                "symmetry": diamond["symmetry"],
+                # if you want to record other data, add it here, then update csv_columns
+              })
+              shape_count += 1
+  
+  print("Saved", shape_count, "of shape", shape)
 
 print("Downloaded", len(catalog_data), "total images")
 
 
 # https://www.tutorialspoint.com/How-to-save-a-Python-Dictionary-to-CSV-file
-csv_columns = ['id','real_image_src']
-csv_file = "diamonds_catalog.csv"
+csv_columns = [
+  "carat",
+  "clarity",
+  "color",
+  "cut",
+  "file_name",
+  'id',
+  "origin",
+  "polish",
+  "price",
+  "product_class",
+  'shape',
+  'src',
+  "symmetry"
+]
+csv_file = "data/diamonds_catalog.csv"
 try:
   with open(csv_file, 'w') as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
