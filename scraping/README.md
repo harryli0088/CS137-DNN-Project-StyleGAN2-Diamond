@@ -12,7 +12,7 @@ conda activate diamond
 
 2. Install Packages
 ```
-python -m pip install beautifulsoup4 requests
+python -m pip install beautifulsoup4 pillow requests
 ```
 
 3. Scrape, ex:
