@@ -1,7 +1,10 @@
 import csv
 import os
 from PIL import Image
-from typing import TypedDict
+from shutil import copyfile
+from typing import Set, TypedDict
+
+dimensions_set:Set[str] = set()
 
 def track_feature(row, tracker:dict, key:str="") -> None:
     feature = row[key] # get the value of this feature
@@ -15,7 +18,15 @@ def track_feature(row, tracker:dict, key:str="") -> None:
     # check if the image is square
     im = Image.open("./data/images/" + row["file_name"])
     dimensions = im.size
+
+    dimensions_set.add(str(im.size[0]) + " - " + str(im.size[1])) # record the dimension of the image
+
+    # check if the image is not 300 pixels in 1 direction
+    if dimensions[0]!=300 == dimensions[1]!=300:
+        print("WARNING:",row["file_name"],"does not have a dimension with 300",im.size)
+
     if dimensions[0] == dimensions[1]:
+        # copyfile("./data/images/" + row["file_name"], "./data/images/square/" + row["file_name"])
         tracker[feature]["is_square"] += 1 # increment the count for square images
 
 
@@ -50,3 +61,4 @@ def print_tracker(tracker:dict) -> None:
 print_tracker(clarity_tracker)
 print_tracker(color_tracker)
 print_tracker(shape_tracker)
+print("dimensions_set",dimensions_set)
