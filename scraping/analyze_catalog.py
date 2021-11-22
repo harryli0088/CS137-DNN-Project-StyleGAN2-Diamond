@@ -16,7 +16,7 @@ def track_feature(row, tracker:dict, key:str="") -> None:
     tracker[feature]["total"] += 1 # increment the count for this feature
 
     # check if the image is square
-    im = Image.open("./data/images/" + row["file_name"])
+    im = Image.open("./data/raw/" + row["file_name"])
     dimensions = im.size
 
     dimensions_set.add(str(im.size[0]) + " - " + str(im.size[1])) # record the dimension of the image
@@ -26,7 +26,7 @@ def track_feature(row, tracker:dict, key:str="") -> None:
         print("WARNING:",row["file_name"],"does not have a dimension with 300",im.size)
 
     if dimensions[0] == dimensions[1]:
-        # copyfile("./data/images/" + row["file_name"], "./data/images/square/" + row["file_name"])
+        # copyfile("./data/raw/" + row["file_name"], "./data/square/" + row["file_name"])
         tracker[feature]["is_square"] += 1 # increment the count for square images
 
 
