@@ -10,7 +10,7 @@ from torch.autograd import Variable
 from torchvision.utils import save_image
 from get_latest_model import get_latest_model
 # from os import listdir
-from azureml.core import Run
+# from azureml.core import Run
 
 
 # command line arguments
@@ -18,7 +18,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--catalog_path', type=str, help='Path to the training data', default="../scraping/data/diamonds_catalog.csv")
 parser.add_argument('--data_path', type=str, help='Path to the training data', default="../scraping/data/square")
 args = parser.parse_args()
-run = Run.get_context()
+# run = Run.get_context()
 
 
 
@@ -30,7 +30,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # some hyperparameters
 BATCH_SIZE = 64
 NOISE_DIM = 64
-EPOCHS = 50
+EPOCHS = 30
 LEARNING_RATE = 0.0002
 loss_function = nn.BCELoss()
 SNAPSHOT = 10 # save the model after every # of epochs
@@ -42,22 +42,22 @@ CATALOG_PATH = args.catalog_path
 TRAIN_DATA_PATH = args.data_path
 MODEL_BASE_PATH = "./outputs/"
 SNAPSHOT_BASE_PATH = "./outputs/"
-# TRANSFORM_IMG = transforms.Compose([
-#     transforms.Resize(256),
-#     # transforms.CenterCrop(256),
-#     transforms.ToTensor(),
-#     transforms.Normalize(
-#         mean=[0.485, 0.456, 0.406], # TODO
-#         std=[0.229, 0.224, 0.225]
-#     )
-# ])
+TRANSFORM_IMG = transforms.Compose([
+    transforms.Resize(256),
+    # transforms.CenterCrop(256),
+    transforms.ToTensor(),
+    transforms.Normalize(
+        mean=[0.485, 0.456, 0.406], # TODO
+        std=[0.229, 0.224, 0.225]
+    )
+])
 
 # print("CATALOG_PATH",CATALOG_PATH,"TRAIN_DATA_PATH",TRAIN_DATA_PATH)
 # for f in listdir("./"):
 #     print("F", f)
 # for f in listdir(TRAIN_DATA_PATH):
 #     print("F", f)
-train_dataset = DiamondCatalogDataset(csv_file=CATALOG_PATH, root_dir=TRAIN_DATA_PATH) #, transform=TRANSFORM_IMG)
+train_dataset = DiamondCatalogDataset(csv_file=CATALOG_PATH, root_dir=TRAIN_DATA_PATH, transform=TRANSFORM_IMG)
 train_data_loader = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 
 
@@ -236,8 +236,8 @@ for epoch in range(starting_epoch, EPOCHS+1):
     print('epoch', epoch)
     print('loss_d', torch.mean(torch.FloatTensor(D_losses)).item())
     print('loss_g', torch.mean(torch.FloatTensor(G_losses)).item())
-    run.log('loss_d', torch.mean(torch.FloatTensor(D_losses)).item())
-    run.log('loss_g', torch.mean(torch.FloatTensor(G_losses)).item())
+    # run.log('loss_d', torch.mean(torch.FloatTensor(D_losses)).item())
+    # run.log('loss_g', torch.mean(torch.FloatTensor(G_losses)).item())
 
     # save full batch of generated images
     generate_images(SNAPSHOT_BASE_PATH+'/sample_' + str(epoch))
