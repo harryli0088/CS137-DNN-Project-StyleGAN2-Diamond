@@ -17,6 +17,7 @@ from get_latest_model import get_latest_model
 parser = argparse.ArgumentParser()
 parser.add_argument('--catalog_path', type=str, help='Path to the training data', default="../scraping/data/diamonds_catalog.csv")
 parser.add_argument('--data_path', type=str, help='Path to the training data', default="../scraping/data/square")
+parser.add_argument('--outout_path', type=str, help='Path to the output data', default="./outputs/")
 args = parser.parse_args()
 # run = Run.get_context()
 
@@ -40,8 +41,8 @@ SNAPSHOT = 10 # save the model after every # of epochs
 # Azure can store files in the outputs/ directory
 CATALOG_PATH = args.catalog_path
 TRAIN_DATA_PATH = args.data_path
-MODEL_BASE_PATH = "./outputs/"
-SNAPSHOT_BASE_PATH = "./outputs/"
+MODEL_BASE_PATH = args.output_path
+SNAPSHOT_BASE_PATH = args.output_path
 TRANSFORM_IMG = transforms.Compose([
     transforms.Resize(256),
     # transforms.CenterCrop(256),
