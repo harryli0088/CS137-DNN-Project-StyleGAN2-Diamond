@@ -99,7 +99,7 @@ class Discriminator(nn.Module):
 
 # build Generator and Discriminator
 FEATURES = ["carat", "clarity", "color", "cut", "price", "shape"] # these are the features we also want to Generator to output
-CSV_HEADERS = ["id"] + FEATURES
+CSV_HEADERS = FEATURES # ["id"] + FEATURES
 NUM_FEATURES = len(FEATURES)
 image_shape = train_dataset[0]["image"].shape
 print("image_shape",image_shape)
@@ -142,9 +142,8 @@ def generate_images(base_path=""):
         feature_data = generated[:,image_size:]
         print(image_data.size())
         print(feature_data.size())
-        print(feature_data)
 
-        print(image_data.size(0), 3, image_shape[0], image_shape[1])
+        print("TEST",image_data.view(image_data.size(0), 3, image_shape[0], image_shape[1]).size())
 
         save_image(image_data.view(image_data.size(0), 3, image_shape[0], image_shape[1]),base_path+'.png') # save the generated images
         pd.DataFrame(feature_data).to_csv(base_path+'.csv', header=CSV_HEADERS) # save the generated feature
@@ -225,7 +224,7 @@ for epoch in range(starting_epoch, EPOCHS+1):
 
     # after every 10th epoch, save the state of each model
     if epoch%SNAPSHOT == 0:
-        filename_base = "-epoch-"+str(epoch)
+        filename_base = "-epoch-"+str(epoch)+".pt"
         torch.save(G.state_dict(), MODEL_BASE_PATH+"/g"+filename_base)
         torch.save(D.state_dict(), MODEL_BASE_PATH+"/d"+filename_base)
     print('epoch', epoch)
