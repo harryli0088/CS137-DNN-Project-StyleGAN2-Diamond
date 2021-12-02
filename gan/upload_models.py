@@ -2,4 +2,4 @@
 from azureml.core import Workspace
 ws = Workspace.from_config()
 datastore = ws.get_default_datastore()
-datastore.upload(src_dir='./dashcam_model', target_path='dashcam_model', overwrite=True)
+datastore.upload(src_dir='./outputs', target_path='outputs', overwrite=True)

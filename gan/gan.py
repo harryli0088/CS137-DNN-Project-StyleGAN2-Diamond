@@ -9,7 +9,8 @@ from torchvision import datasets, transforms
 from torch.autograd import Variable
 from torchvision.utils import save_image
 from get_latest_model import get_latest_model
-# from azureml.core import Run
+# from os import listdir
+from azureml.core import Run
 
 
 # command line arguments
@@ -17,7 +18,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--catalog_path', type=str, help='Path to the training data', default="../scraping/data/diamonds_catalog.csv")
 parser.add_argument('--data_path', type=str, help='Path to the training data', default="../scraping/data/square")
 args = parser.parse_args()
-# run = Run.get_context()
+run = Run.get_context()
 
 
 
@@ -32,7 +33,7 @@ NOISE_DIM = 64
 EPOCHS = 50
 LEARNING_RATE = 0.0002
 loss_function = nn.BCELoss()
-SNAPSHOT = 1 # save the model after every # of epochs
+SNAPSHOT = 10 # save the model after every # of epochs
 
 
 # load the data
@@ -51,6 +52,11 @@ SNAPSHOT_BASE_PATH = "./outputs/"
 #     )
 # ])
 
+# print("CATALOG_PATH",CATALOG_PATH,"TRAIN_DATA_PATH",TRAIN_DATA_PATH)
+# for f in listdir("./"):
+#     print("F", f)
+# for f in listdir(TRAIN_DATA_PATH):
+#     print("F", f)
 train_dataset = DiamondCatalogDataset(csv_file=CATALOG_PATH, root_dir=TRAIN_DATA_PATH) #, transform=TRANSFORM_IMG)
 train_data_loader = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 
@@ -220,7 +226,7 @@ for epoch in range(starting_epoch, EPOCHS+1):
         if batch_size==BATCH_SIZE:
             D_losses.append(D_train(batch))
             G_losses.append(G_train())
-            break # debugging
+            # break # debugging
 
     # after every 10th epoch, save the state of each model
     if epoch%SNAPSHOT == 0:
@@ -230,8 +236,8 @@ for epoch in range(starting_epoch, EPOCHS+1):
     print('epoch', epoch)
     print('loss_d', torch.mean(torch.FloatTensor(D_losses)).item())
     print('loss_g', torch.mean(torch.FloatTensor(G_losses)).item())
-    # run.log('loss_d', torch.mean(torch.FloatTensor(D_losses)).item())
-    # run.log('loss_g', torch.mean(torch.FloatTensor(G_losses)).item())
+    run.log('loss_d', torch.mean(torch.FloatTensor(D_losses)).item())
+    run.log('loss_g', torch.mean(torch.FloatTensor(G_losses)).item())
 
     # save full batch of generated images
     generate_images(SNAPSHOT_BASE_PATH+'/sample_' + str(epoch))

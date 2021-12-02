@@ -2,4 +2,5 @@
 from azureml.core import Workspace
 ws = Workspace.from_config()
 datastore = ws.get_default_datastore()
-datastore.upload(src_dir='./data', target_path='image_data_train', overwrite=True)
+datastore.upload(src_dir='../scraping/data/square', target_path='square', overwrite=True)
+datastore.upload_files(['../scraping/data/diamonds_catalog.csv'], target_path='catalog', overwrite=True)

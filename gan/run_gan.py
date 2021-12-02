@@ -1,4 +1,4 @@
-# run this file to run the dashcam in azure
+# run this file to run the gan in azure
 
 from azureml.core import Workspace
 from azureml.core import Experiment
@@ -10,20 +10,18 @@ if __name__ == "__main__":
     ws = Workspace.from_config()
 
     datastore = ws.get_default_datastore()
-    dataset = Dataset.File.from_files(path=(datastore, 'image_data_train'))
-    # models = Dataset.File.from_files(path=(datastore, 'dashcam_model'))
-    # samples = Dataset.File.from_files(path=(datastore, 'dashcam_samples'))
+    catalog_path = Dataset.File.from_files(path=(datastore, 'catalog/diamonds_catalog.csv'))
+    data_path = Dataset.File.from_files(path=(datastore, 'square'))
 
     experiment = Experiment(workspace=ws, name='day1-experiment-data')
 
     config = ScriptRunConfig(
-        source_directory='./src',
-        script='dashcam_gan.py',
+        source_directory='./',
+        script='gan.py',
         compute_target='cpu-cluster',
         arguments=[
-            '--data_path', dataset.as_named_input('input').as_mount(),
-            # '--dashcam_model', models.as_named_input('models').as_mount(),
-            # '--dashcam_samples', samples.as_named_input('samples').as_mount()
+            '--catalog_path', catalog_path.as_named_input('catalog_path').as_mount(),
+            '--data_path', data_path.as_named_input('data_path').as_mount(),
             ]
         )
 
