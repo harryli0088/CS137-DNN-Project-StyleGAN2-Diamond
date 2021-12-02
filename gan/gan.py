@@ -17,7 +17,7 @@ from get_latest_model import get_latest_model
 parser = argparse.ArgumentParser()
 parser.add_argument('--catalog_path', type=str, help='Path to the training data', default="../scraping/data/diamonds_catalog.csv")
 parser.add_argument('--data_path', type=str, help='Path to the training data', default="../scraping/data/square")
-parser.add_argument('--outout_path', type=str, help='Path to the output data', default="./outputs/")
+parser.add_argument('--output_path', type=str, help='Path to the output data', default="./outputs/")
 args = parser.parse_args()
 # run = Run.get_context()
 
