@@ -142,7 +142,7 @@ def generate_images(base_path=""):
     with torch.no_grad():
         test_z = Variable(torch.randn(BATCH_SIZE, NOISE_DIM).to(device))
         generated = G(test_z) # generate images
-        print(generated)
+        # print(generated)
         print(generated.size())
 
         image_data = generated[:,0:image_size]
@@ -150,9 +150,9 @@ def generate_images(base_path=""):
         print(image_data.size())
         print(feature_data.size())
 
-        print("TEST",image_data.view(image_data.size(0), 3, image_shape[0], image_shape[1]).size())
+        print("TEST",image_data.view(image_data.size(0), 3, image_shape[1], image_shape[2]).size())
 
-        save_image(image_data.view(image_data.size(0), 3, image_shape[0], image_shape[1]),base_path+'.png') # save the generated images
+        save_image(image_data.view(image_data.size(0), 3, image_shape[1], image_shape[2]),base_path+'.png') # save the generated images
         pd.DataFrame(feature_data).to_csv(base_path+'.csv', header=CSV_HEADERS) # save the generated feature
 
 
