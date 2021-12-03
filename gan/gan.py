@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import datasets, transforms
+from torchvision import transforms
 from torch.autograd import Variable
 from torchvision.utils import save_image
 from get_latest_model import get_latest_model
@@ -17,6 +17,7 @@ from get_latest_model import get_latest_model
 parser = argparse.ArgumentParser()
 parser.add_argument('--catalog_path', type=str, help='Path to the training data', default="../scraping/data/diamonds_catalog.csv")
 parser.add_argument('--data_path', type=str, help='Path to the training data', default="../scraping/data/square")
+parser.add_argument('--load_path', type=str, help='Path to load misc data', default="./outputs/")
 parser.add_argument('--no_azure', dest='use_azure', action='store_false')
 parser.add_argument('--output_path', type=str, help='Path to the output data', default="./outputs/")
 parser.set_defaults(use_azure=True)
@@ -42,8 +43,8 @@ SNAPSHOT = 10 # save the model after every # of epochs
 # Azure can store files in the outputs/ directory
 CATALOG_PATH = args.catalog_path
 TRAIN_DATA_PATH = args.data_path
-MODEL_BASE_PATH = args.output_path
-SNAPSHOT_BASE_PATH = args.output_path
+LOAD_PATH = args.load_path
+OUTPUT_PATH = args.output_path
 TRANSFORM_IMG = transforms.Compose([
     transforms.Resize(256),
     # transforms.CenterCrop(256),
@@ -127,8 +128,8 @@ D = Discriminator(
 ).to(device)
 
 # used saved models if you have them
-saved_G = get_latest_model("g-",MODEL_BASE_PATH)
-saved_D = get_latest_model("d-",MODEL_BASE_PATH)
+saved_G = get_latest_model("g-",OUTPUT_PATH)
+saved_D = get_latest_model("d-",OUTPUT_PATH)
 starting_epoch = 1
 if len(saved_G["filepath"]) > 0:
     G.load_state_dict(torch.load(saved_G["filepath"]))
@@ -230,13 +231,13 @@ for epoch in range(starting_epoch, EPOCHS+1):
         if batch_size==BATCH_SIZE:
             D_losses.append(D_train(batch))
             G_losses.append(G_train())
-            break # debugging
+            # break # debugging
 
     # after every 10th epoch, save the state of each model
     if epoch%SNAPSHOT == 0:
         filename_base = "-epoch-"+str(epoch)+".pt"
-        torch.save(G.state_dict(), MODEL_BASE_PATH+"/g"+filename_base)
-        torch.save(D.state_dict(), MODEL_BASE_PATH+"/d"+filename_base)
+        torch.save(G.state_dict(), OUTPUT_PATH+"/g"+filename_base)
+        torch.save(D.state_dict(), OUTPUT_PATH+"/d"+filename_base)
     print('epoch', epoch)
     print('loss_d', torch.mean(torch.FloatTensor(D_losses)).item())
     print('loss_g', torch.mean(torch.FloatTensor(G_losses)).item())
@@ -244,10 +245,10 @@ for epoch in range(starting_epoch, EPOCHS+1):
     run_logger.log('loss_g', torch.mean(torch.FloatTensor(G_losses)).item())
 
     # save full batch of generated images
-    generate_images(SNAPSHOT_BASE_PATH+'/sample_' + str(epoch))
+    generate_images(OUTPUT_PATH+'/sample_' + str(epoch))
 
 
 
 
 # generate a final set of images
-generate_images(SNAPSHOT_BASE_PATH+'/sample_final')
+generate_images(OUTPUT_PATH+'/sample_final')
