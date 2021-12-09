@@ -5,7 +5,7 @@ from make_directory import make_directory
 import requests
 import urllib.request
 
-make_directory("./data/raw/") # make the raw directory if it does not exist 
+make_directory("./data/diamonds-raw/") # make the raw directory if it does not exist 
 
 SHAPES = ["Round","Oval","Cushion","Pear","Princess","Emerald","Marquise","Asscher","Radiant","Heart"]
 
@@ -56,7 +56,7 @@ for shape in SHAPES: # loop through all the shapes
                   print("Saving Diamond:", id)
 
                   urllib.request.urlretrieve( # save the image to file
-                    "http:"+src, "data/raw/"+file_name
+                    "http:"+src, "data/diamonds-raw/"+file_name
                   )
                   catalog_data.append({
                     "carat": diamond["carat"],

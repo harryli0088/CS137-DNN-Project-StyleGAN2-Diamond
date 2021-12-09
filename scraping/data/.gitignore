@@ -1,4 +1,6 @@
 *.tsv
 *.csv
-square/
-raw/
+diamonds-square/
+diamonds-raw/
+gemstones-raw/
+gemstones-square/
