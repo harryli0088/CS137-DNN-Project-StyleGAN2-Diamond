@@ -8,7 +8,7 @@ from make_directory import make_directory
 from PIL import Image
 
 
-make_directory("./data/gemstones-square/") # make the square directory if it does not exist 
+make_directory("./data/gemstones_angles-square/") # make the square directory if it does not exist 
 
 
 # based on https://note.nkmk.me/en/python-pillow-add-margin-expand-canvas/
@@ -27,15 +27,15 @@ def pad_to_square(im, background_color="#aaaaaa"):
 
 
 def pad_and_resize_image(file_name:str):
-    im = Image.open("./data/gemstones/" + file_name) # open the image
+    im = Image.open("./data/gemstones_angles-raw/" + file_name) # open the image
         
     im = pad_to_square(im) # pad the image to be square
 
     im  = im.resize((256,256)) # resize the image to 256 x 256
-    im.save("./data/gemstones-square/" + file_name) # save the square image
+    im.save("./data/gemstones_angles-square/" + file_name) # save the square image
 
 
-with open("data/gemstones_catalog.csv") as fp:
+with open("data/gemstones_angles_catalog.csv") as fp:
     reader = csv.DictReader(fp)
     for row in reader: # check all the images
         pad_and_resize_image(row["file_name"])

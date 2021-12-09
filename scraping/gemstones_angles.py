@@ -1,5 +1,6 @@
 # this file assumes you have already run gemstones.py
 # this file gets the angles of the diamonds found in ./data/gemstones-datalog.csv
+# you may need to run gemstones_angles_cleanup.py afterwards
 
 import base64
 import csv

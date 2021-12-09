@@ -1,4 +1,6 @@
 # run this file after gemstones_angles.py
+# when I ran gemstones_angles.py, all the index 0 files had bad data
+# this script removes all idx 0 images and rows in the catalog
 
 import csv
 import os
