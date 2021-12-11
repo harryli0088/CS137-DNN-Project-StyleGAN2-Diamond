@@ -28,7 +28,7 @@ This experiment was run on 21-12-09 on Kaggle using StyleGAN2 (not ADA) PyTorch 
 
 ### StyleGAN2_PyTorch_Diamond_CFF_9000
 
-This experiment was run on `009000.pt` from `StyleGAN2_PyTorch_Diamond_Kaggle_21-12-09` using the closed form factorization scripts from https://github.com/rosinality/stylegan2-pytorch
+This experiment was run on `009000.pt` from `StyleGAN2_PyTorch_Diamond_Kaggle_21-12-09` using the closed form factorization scripts from https://github.com/rosinality/stylegan2-pytorch. The outputs are from a version of `StyleGAN2_PyTorch_Closed-Form-Factorization_Kaggle.ipynb`.
 
 ## StyleGAN2_ADA_Diamond_Transfer_Gemstones_Angled_Kaggle_21-12-09
 
@@ -41,6 +41,10 @@ The outputs are from a version of `StyleGAN2_ADA_PyTorch_Kaggle.ipynb`.
 This experiment was run on 21-12-10 on Kaggle using StyleGAN2 (not ADA) PyTorch (https://github.com/rosinality/stylegan2-pytorch) on the `gemstones_angled-square` data. This experiment resumed training on `009000.pt` from `StyleGAN2_PyTorch_Diamond_Kaggle_21-12-09`, meaning that the model was initially trained on diamonds for 9000 steps, and then transferred learning to angled gemstones for 9000 steps.
 
 The outputs are from a version of `StyleGAN2_PyTorch_Kaggle.ipynb`.
+
+### StyleGAN2_PyTorch_Diamond_Transfer_Gemstones_CFF_18000
+
+This experiment was run on `018000.pt` from `StyleGAN2_PyTorch_Diamond_Transfer_Gemstones_Kaggle_21-12-10` using the closed form factorization scripts from https://github.com/rosinality/stylegan2-pytorch. The outputs are from a version of `StyleGAN2_PyTorch_Closed-Form-Factorization_Kaggle.ipynb`.
 
 # Data
 
