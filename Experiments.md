@@ -105,3 +105,9 @@ This file contains the raw images of all the angled gemstones.
 ### `gemstones_angled-square.zip`
 
 This file contains the gemstones_angled-raw images after running them through  `scraping/pad_and_resize.py`. The images are padded (if necessary) to be square and 256x256.
+
+# Closed Form Factorization
+
+## Latent Space Interpolation Videos
+
+This folder contains all of the output videos generated from the 027000 diamond model and 036000 gemstones model using `Kaggle/Closed_Form_Factoriztion_Kaggle.ipynb`.
