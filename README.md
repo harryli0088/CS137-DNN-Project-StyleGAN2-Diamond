@@ -6,6 +6,12 @@ Harry Li, Marco Pretell
 
 This repository contains all the code for our project for CS137 Deep Neural Networks at Tufts University in Fall 2021. We successfully created our own diamond and gemstone images dataset, trained a GAN to generate new images, and leveraged a closed-form factorization technique to identify eigenvectors in the latent space that control for the strongest output features in the generated images.
 
+## Submission Materials
+
+- Project Report: https://tufts.box.com/s/ipm16ki7vfk7g0bt4v48mmcbgq0yav4b
+- Video Presentation: https://tufts.box.com/s/lqd4d4vvgmhg7spqkpap1y0izr94p4w9
+- Presentation Slides: https://docs.google.com/presentation/d/1wLBg5c-SrXdJcABRmaEee6nd87yfNmLV40FqwdUrrAE/edit?usp=sharing
+
 ## Dataset, Output Models, Images, and Videos
 
 All of our datasets, output models, images, and videos are in Box at this link.
