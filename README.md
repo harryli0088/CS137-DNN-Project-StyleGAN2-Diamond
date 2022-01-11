@@ -37,3 +37,8 @@ Contains an incomplete and abandoned attempt to create our own GAN that could ge
 ## `scraping/`
 
 Contains all the webscraping code we used to generate our novel dataset
+
+
+# Acknowledgements
+
+Big thank you to [rosinality](https://github.com/rosinality) and his [PyTorch implementation of StyleGAN2](https://github.com/rosinality/stylegan2-pytorch)!
