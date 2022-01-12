@@ -1,8 +1,9 @@
 <script lang="ts">
   import Fa from 'svelte-fa'
   import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
-  import { faFilePdf, faFile, faVideo } from '@fortawesome/free-solid-svg-icons'
+  import { faFilePdf, faFile, faVideo, faGamepad } from '@fortawesome/free-solid-svg-icons'
   import Blanchor from '$lib/Blanchor.svelte';
+  import { base } from '$app/paths';
 </script>
 
 <main>
@@ -54,6 +55,14 @@
         <Fa icon={faTwitter}/>
       </Blanchor>
     </button> -->
+
+    <hr/>
+
+    <h2>Can You Tell the Difference?</h2>
+
+    <p>Play a game to see if you can tell the difference between real and generated images!</p>
+
+    <a href={`${base}/game`}><button class="colored" style="background-color:#F39C12">Play a Game <Fa icon={faGamepad}/></button></a>
 
     <hr/>
 

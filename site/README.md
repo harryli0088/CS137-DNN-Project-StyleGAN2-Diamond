@@ -84,3 +84,19 @@ export default config;
 ```
 npm run deploy
 ```
+
+## Game
+
+The generated images used in the game are cherry-picked with about a 25% rate, ie 25% looked good enough and 75% were discarded. Clearly this means that our generator has room for improvement. We also tried to maintain a reasonable distribution of shapes. Loosely speaking, it seems that the generator is best a generating Princess, Heart, and Emerald shapes. It is not as good at generating Round shapes.
+
+The real images roughly correspond in features to their generated counterparts, ie real 1.jpg should look similar to generated 1.jpg
+
+### Convert png to jpg
+```
+mogrify -format jpg *.png
+```
+
+### Number all jpg files
+```
+ls -v | cat -n | while read n f; do mv -n "$f" "$n.jpg"; done
+```

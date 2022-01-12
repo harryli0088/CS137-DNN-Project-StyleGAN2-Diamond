@@ -11,7 +11,7 @@
   }
 
 	const GAME_LENGTH = 10 //the number of images to quiz the player on
-  const MAX_IMAGES = 100 // the maximum number of images in each class (ie real vs generated)
+  const MAX_IMAGES = 50 // the maximum number of images in each class (ie real vs generated)
 
   enum GAME_STATE {
     IDLE,
@@ -70,7 +70,7 @@
 
     return {
       real,
-      src: `${base}/images/${real?"real":"generated"}/${imageNumber}.jpg`
+      src: `${base}/game_images/${real?"real":"generated"}/${imageNumber}.jpg`
     }
   }
 
@@ -152,7 +152,15 @@
 
           <h1>Your final score was <b>{score} / {encounteredImages.length}</b></h1>
 
-          <button class="colored" on:click={() => startGame()} style="background-color:#F39C12;">Play Again <Fa icon={faRedo}/></button>
+          <div>
+            <button class="colored" on:click={() => startGame()} style="background-color:#F39C12;">Play Again <Fa icon={faRedo}/></button>
+          </div>
+
+          <br/>
+
+          <div>
+            <a href={`/${base}`}><button class="colored" style="background-color:#999">How We Trained Our Model <Fa icon={faHome}/></button></a>
+          </div>
           <!-- TODO social media -->
         {/if}
       </div>
