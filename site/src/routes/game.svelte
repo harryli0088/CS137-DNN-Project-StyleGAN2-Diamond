@@ -3,15 +3,15 @@
   import { base } from '$app/paths'
   import { faGithub } from "@fortawesome/free-brands-svg-icons";
   import Fa from "svelte-fa";
-  import { faPlay, faRedo } from "@fortawesome/free-solid-svg-icons";
+  import { faAngleRight, faGem, faHome, faPlay, faRedo } from "@fortawesome/free-solid-svg-icons";
 
   type ImageData = {
     real: boolean,
     src: string,
   }
 
-  const MAX_IMAGES = 100 // the maximum number of images in each class (ie real vs generated)
 	const GAME_LENGTH = 10 //the number of images to quiz the player on
+  const MAX_IMAGES = 100 // the maximum number of images in each class (ie real vs generated)
 
   enum GAME_STATE {
     IDLE,
@@ -66,7 +66,7 @@
 
   function randomlyPickImage():ImageData {
     let real = Math.random() > 0.5 //randomly select whether to pick a real or fake image
-    let imageNumber = Math.floor(100 * Math.random()) + 1 //randomly select a number from [1,100]
+    let imageNumber = Math.floor(MAX_IMAGES * Math.random()) + 1 //randomly select a number from [1,MAX_IMAGES]
 
     return {
       real,
@@ -93,41 +93,16 @@
 </svelte:head>
 
 <div id="game-container">
+  <div id="menu">
+    <a href={`/${base}`}><Fa class="icon-button" icon={faHome} style="color:white;"/></a>
+
+    <Blanchor href="https://github.com/harryli0088/CS137-DNN-Project-StyleGAN2-Diamond">
+      <Fa class="icon-button" icon={faGithub} style="color:white;"/>
+    </Blanchor>
+  </div>
+
   <section>
-    {#if gameState !== GAME_STATE.IDLE}
-      <div>
-        <h1>Image #{encounteredImages.length}</h1>
-
-        <img src={currentImage.src} alt="is this real or generated?">
-
-        <br/>
-
-        {#if gameState === GAME_STATE.ASK}
-          <p style="margin-bottom:0.5em">Is this image:</p>
-
-          <div>
-            <button class="colored" on:click={() => answer(true)} style="background-color:#28B463">Real</button>
-            or 
-            <button class="colored" on:click={() => answer(false)} style="background-color:#E74C3C">Generated</button>
-            ?
-          </div>
-
-          <p>Score: {score} / {encounteredImages.length - 1}</p>
-        {:else if gameState === GAME_STATE.REVEAL}
-          <p style="margin-bottom:0.5em">
-            {wasCorrect ? "Correct!" : "Incorrect."} {`This is a ${currentImage.real?"real":"generated"} diamond.`}
-          </p>
-          
-          <button class="colored" on:click={() => nextQuestion()} style="background-color:#F39C12;">Next</button>
-
-          <p>Score: {score} / {encounteredImages.length}</p>
-        {:else if gameState === GAME_STATE.END}
-          <p>Your final score was <b>{score} / {encounteredImages.length}</b></p>
-
-          <button class="colored" on:click={() => startGame()} style="background-color:#F39C12;">Play Again <Fa icon={faRedo}/></button>
-        {/if}
-      </div>
-    {:else}
+    {#if gameState === GAME_STATE.IDLE}
       <div>
         <h1>
           Can you tell the difference between 
@@ -135,7 +110,51 @@
           real vs generated diamonds?
         </h1>
 
+        <div style="font-size:2em"><b><Fa icon={faGem}/></b></div>
+
+        <br/>
+
         <button class="colored" on:click={() => startGame()} style="background-color:#F39C12;">Start Game <Fa icon={faPlay}/></button>
+      </div>
+    {:else}
+      <div>
+        {#if gameState === GAME_STATE.ASK || gameState === GAME_STATE.REVEAL}
+          <h1>Image {encounteredImages.length} / {GAME_LENGTH}</h1>
+
+          <img src={currentImage.src} alt="is this real or generated?">
+
+          <br/>
+        {/if}
+
+        {#if gameState === GAME_STATE.ASK}
+          <p>Is this image</p>
+          <div>
+            <button class="colored" on:click={() => answer(true)} style="background-color:#28B463">Real</button>
+            or 
+            <button class="colored" on:click={() => answer(false)} style="background-color:#E74C3C">Generated</button>
+          </div>
+
+          <hr/>
+
+          <p><b>Score: {score} / {encounteredImages.length - 1}</b></p>
+        {:else if gameState === GAME_STATE.REVEAL}
+          <p>
+            {wasCorrect ? "Correct!" : "Incorrect."} {`This is a ${currentImage.real?"real":"generated"} diamond.`}
+          </p>
+          
+          <button class="colored" on:click={() => nextQuestion()} style="background-color:#F39C12;">Next <Fa icon={faAngleRight}/></button>
+          
+          <hr/>
+
+          <p><b>Score: {score} / {encounteredImages.length}</b></p>
+        {:else if gameState === GAME_STATE.END}
+          <div style="font-size:2em"><b><Fa icon={faGem}/></b></div>
+
+          <h1>Your final score was <b>{score} / {encounteredImages.length}</b></h1>
+
+          <button class="colored" on:click={() => startGame()} style="background-color:#F39C12;">Play Again <Fa icon={faRedo}/></button>
+          <!-- TODO social media -->
+        {/if}
       </div>
     {/if}
   </section>
@@ -150,5 +169,13 @@
     align-items: center;
     background-color: #2874A6;
     color: #fff;
+    position: relative;
+  }
+
+  #menu {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    font-size: 2em;
   }
 </style>
