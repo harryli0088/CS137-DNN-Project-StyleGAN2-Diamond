@@ -9,7 +9,7 @@
 </main>
 
 <footer>
-  <p>Built using <Blanchor href="https://kit.svelte.dev/">Svelte Kit</Blanchor></p>
+  <p>Built using <Blanchor href="https://kit.svelte.dev/">Svelte Kit</Blanchor> and <Blanchor href="https://www.typescriptlang.org/">TypeScript</Blanchor></p>
   <p>Github Repo: <Blanchor href="https://github.com/harryli0088/CS137-DNN-Project-StyleGAN2-Diamond">https://github.com/harryli0088/CS137-DNN-Project-StyleGAN2-Diamond</Blanchor></p>
   <p>Icons provided by Font Awesome: <Blanchor href="https://fontawesome.com/license">https://fontawesome.com/license</Blanchor></p>
   <p>Big thank you to <Blanchor href="https://github.com/rosinality">rosinality</Blanchor> and his <Blanchor href="https://github.com/rosinality/stylegan2-pytorch">PyTorch implementation of StyleGAN2</Blanchor>!</p>

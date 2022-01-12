@@ -29,21 +29,21 @@
     <p>We trained <Blanchor href="https://github.com/rosinality/stylegan2-pytorch">StyleGAN2</Blanchor> on a novel gemstone images dataset and applied a latent space discovery technique to control for output features. All the images and videos on this page are generated using an AI model.</p>
 
     <Blanchor href="https://tufts.box.com/s/j12sbzunf4absbji9mt8oxeur9oaij2u">
-      <button style="background-color:#FF5733;outline: none;border: none;color:white">
+      <button class="colored" style="background-color:#FF5733">
         All Output Files <Fa icon={faFile}/>
       </button>
     </Blanchor>
     &nbsp;
 
     <Blanchor href="https://tufts.box.com/s/ipm16ki7vfk7g0bt4v48mmcbgq0yav4b">
-      <button style="background-color:#F39C12;outline: none;border: none;color:white">
+      <button class="colored" style="background-color:#F39C12">
         Full Report <Fa icon={faFilePdf}/>
       </button>
     </Blanchor>
     &nbsp;
 
     <Blanchor href="https://tufts.box.com/s/lqd4d4vvgmhg7spqkpap1y0izr94p4w9">
-      <button style="background-color:#3498DB;outline: none;border: none;color:white">
+      <button class="colored" style="background-color:#3498DB">
         Full Presentation <Fa icon={faVideo}/>
       </button>
     </Blanchor>
@@ -110,27 +110,7 @@
 </main>
 
 <style>
-	header {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-		background-color: #17202A;
-		color: white;
-    text-align: center;
-    /* height: 70vh; */
-	}
-  @media only screen and (min-width: 600px) {
-		header {
-			/* height: 50vh; */
-		}
-	}
-
   img {
     width: 100%;
   }
-
-  /* img {
-    width: 100%;
-  } */
 </style>

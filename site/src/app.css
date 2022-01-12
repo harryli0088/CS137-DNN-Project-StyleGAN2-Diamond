@@ -82,6 +82,10 @@ button:active {
 	transform: scale(0.9);
 }
 
+button.colored {
+  color:white;
+}
+
 .icon-button {
   cursor: pointer;
 	transition: 0.5s;
@@ -95,3 +99,14 @@ button:active {
 }
 
 
+
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #17202A;
+  color: white;
+  text-align: center;
+}
