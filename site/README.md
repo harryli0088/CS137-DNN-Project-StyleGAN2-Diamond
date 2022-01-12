@@ -100,3 +100,19 @@ mogrify -format jpg *.png
 ```
 ls -v | cat -n | while read n f; do mv -n "$f" "$n.jpg"; done
 ```
+
+### Scores
+
+I've shared this game with friends and coworkers with these loose resuls
+
+| Score      | Frequency |
+| ---------- | --------- |
+| 4   | 2    |
+| 5   | 3    |
+| 6   | 1    |
+| 7   | 3    |
+| 8   | 2    |
+
+Numebr of Samples: 11
+
+Average Score: 6
