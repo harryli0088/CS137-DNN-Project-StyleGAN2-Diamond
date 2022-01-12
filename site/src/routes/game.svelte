@@ -25,7 +25,7 @@
   let score:number = 0
   let wasCorrect: boolean = false
 
-  $: currentImage = encounteredImages.at(-1)
+  $: currentImage = encounteredImages[encounteredImages.length - 1]
 
   function startGame() {
     //reset the game data
@@ -94,7 +94,7 @@
 
 <div id="game-container">
   <div id="menu">
-    <a href={`${base}`}><Fa class="icon-button" icon={faHome} style="color:white;"/></a>
+    <a href={`${base}/`}><Fa class="icon-button" icon={faHome} style="color:white;"/></a>
 
     <Blanchor href="https://github.com/harryli0088/CS137-DNN-Project-StyleGAN2-Diamond">
       <Fa class="icon-button" icon={faGithub} style="color:white;"/>
@@ -159,7 +159,7 @@
           <br/>
 
           <div>
-            <a href={`${base}`}><button class="colored" style="background-color:#999">How We Trained Our Model <Fa icon={faHome}/></button></a>
+            <a href={`${base}/`}><button class="colored" style="background-color:#999">How We Trained Our Model <Fa icon={faHome}/></button></a>
           </div>
           <!-- TODO social media -->
         {/if}
