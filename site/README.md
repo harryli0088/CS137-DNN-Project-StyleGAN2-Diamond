@@ -109,10 +109,10 @@ I've shared this game with friends and coworkers with these loose resuls
 | ---------- | --------- |
 | 4   | 2    |
 | 5   | 3    |
-| 6   | 1    |
+| 6   | 2    |
 | 7   | 3    |
 | 8   | 2    |
 
-Numebr of Samples: 11
+Numebr of Samples: 12
 
 Average Score: 6
