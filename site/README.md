@@ -107,12 +107,12 @@ I've shared this game with friends and coworkers with these loose resuls
 
 | Score      | Frequency |
 | ---------- | --------- |
-| 4   | 2    |
-| 5   | 3    |
-| 6   | 2    |
+| 4   | 3    |
+| 5   | 4    |
+| 6   | 3    |
 | 7   | 3    |
-| 8   | 2    |
+| 8   | 3    |
 
-Numebr of Samples: 12
+Numebr of Samples: 16
 
-Average Score: 6
+Average Score: ~6
